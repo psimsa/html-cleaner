@@ -1,0 +1,28 @@
+{
+    "name": "HTML Styles Cleaner",
+    "short_name": "HTML Cleaner",
+    "description": "Free online tool to strip inline CSS styles, JavaScript, and class attributes from HTML documents. Works offline.",
+    "start_url": "https://htmlcleaner.pubino.eu/",
+    "id": "https://htmlcleaner.pubino.eu/",
+    "display": "standalone",
+    "background_color": "#f8fafc",
+    "theme_color": "#6366f1",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["utilities", "developer tools"],
+    "lang": "en",
+    "dir": "ltr"
+}

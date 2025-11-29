@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4f46e5"/>
+      <stop offset="100%" style="stop-color:#6366f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <text x="600" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="120" font-weight="bold" text-anchor="middle" fill="white">🧹</text>
+  <text x="600" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="bold" text-anchor="middle" fill="white">HTML Styles Cleaner</text>
+  <text x="600" y="430" font-family="system-ui, -apple-system, sans-serif" font-size="28" text-anchor="middle" fill="rgba(255,255,255,0.85)">Remove inline CSS, JavaScript &amp; class attributes from HTML</text>
+  <text x="600" y="530" font-family="system-ui, -apple-system, sans-serif" font-size="24" text-anchor="middle" fill="rgba(255,255,255,0.7)">htmlcleaner.pubino.eu • Free • Works Offline • No Upload Required</text>
+</svg>
