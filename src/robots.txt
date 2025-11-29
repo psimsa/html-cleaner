@@ -1,0 +1,5 @@
+# https://htmlcleaner.pubino.eu
+User-agent: *
+Allow: /
+
+Sitemap: https://htmlcleaner.pubino.eu/sitemap.xml

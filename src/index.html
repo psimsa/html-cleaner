@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>HTML Styles Cleaner - Remove Inline CSS & JavaScript from HTML | Free Online Tool</title>
+    <meta name="description" content="Free online tool to strip inline CSS styles, JavaScript, and class attributes from HTML documents. Clean HTML instantly in your browser - no server upload required. Works offline as PWA.">
+    <meta name="keywords" content="HTML cleaner, remove inline CSS, strip styles, clean HTML, remove JavaScript, HTML sanitizer, web development tool, PWA">
+    <meta name="author" content="Pubino">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://htmlcleaner.pubino.eu/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://htmlcleaner.pubino.eu/">
+    <meta property="og:title" content="HTML Styles Cleaner - Remove Inline CSS & JavaScript from HTML">
+    <meta property="og:description" content="Free online tool to strip inline CSS styles, JavaScript, and class attributes from HTML documents. Works offline, no data sent to servers.">
+    <meta property="og:image" content="https://htmlcleaner.pubino.eu/og-image.png">
+    <meta property="og:site_name" content="HTML Styles Cleaner">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://htmlcleaner.pubino.eu/">
+    <meta name="twitter:title" content="HTML Styles Cleaner - Remove Inline CSS & JavaScript">
+    <meta name="twitter:description" content="Free online tool to strip inline CSS styles and JavaScript from HTML. Works offline as PWA.">
+    <meta name="twitter:image" content="https://htmlcleaner.pubino.eu/og-image.png">
+    
+    <!-- PWA -->
+    <meta name="theme-color" content="#6366f1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="HTML Cleaner">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧹</text></svg>">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "HTML Styles Cleaner",
+        "url": "https://htmlcleaner.pubino.eu/",
+        "description": "Free online tool to strip inline CSS styles, JavaScript, and class attributes from HTML documents.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "browserRequirements": "Requires JavaScript. Works offline.",
+        "softwareVersion": "1.0",
+        "author": {
+            "@type": "Organization",
+            "name": "Pubino",
+            "url": "https://pubino.eu"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧹 HTML Styles Cleaner</h1>
+            <p class="subtitle">Remove inline CSS styles and JavaScript from HTML</p>
+        </header>
+
+        <main>
+            <div class="panels">
+                <div class="panel input-panel">
+                    <div class="panel-header">
+                        <label for="input">Input HTML</label>
+                        <span class="char-count" id="inputCount">0 characters</span>
+                    </div>
+                    <textarea 
+                        id="input" 
+                        placeholder="Paste your HTML with inline styles here..."
+                        spellcheck="false"
+                    ></textarea>
+                    <div class="panel-actions">
+                        <button id="clearBtn" class="btn btn-secondary" title="Clear input">
+                            <span class="btn-icon">✕</span> Clear
+                        </button>
+                        <button id="pasteBtn" class="btn btn-secondary" title="Paste from clipboard">
+                            <span class="btn-icon">📋</span> Paste
+                        </button>
+                    </div>
+                </div>
+
+                <div class="divider">
+                    <button id="convertBtn" class="btn btn-primary btn-convert" title="Clean HTML">
+                        <span class="btn-icon">→</span>
+                        <span class="btn-text">Clean</span>
+                    </button>
+                </div>
+
+                <div class="panel output-panel">
+                    <div class="panel-header">
+                        <label for="output">Cleaned HTML</label>
+                        <span class="char-count" id="outputCount">0 characters</span>
+                    </div>
+                    <textarea 
+                        id="output" 
+                        placeholder="Cleaned HTML will appear here..."
+                        readonly
+                        spellcheck="false"
+                    ></textarea>
+                    <div class="panel-actions">
+                        <button id="copyBtn" class="btn btn-secondary" title="Copy to clipboard" disabled>
+                            <span class="btn-icon">📄</span> Copy
+                        </button>
+                        <button id="downloadBtn" class="btn btn-secondary" title="Download as file" disabled>
+                            <span class="btn-icon">⬇</span> Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-container" id="progressContainer" hidden>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">Processing...</span>
+            </div>
+
+            <div class="options">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="autoConvert" checked>
+                    <span class="checkbox-custom"></span>
+                    Auto-convert (for inputs under 5,000 characters)
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="removeComments">
+                    <span class="checkbox-custom"></span>
+                    Remove HTML comments
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="removeDataAttrs">
+                    <span class="checkbox-custom"></span>
+                    Remove data-* attributes
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="removeClasses">
+                    <span class="checkbox-custom"></span>
+                    Remove CSS classes
+                </label>
+            </div>
+        </main>
+
+        <footer>
+            <p>Works offline • No data sent to servers • <a href="https://github.com/psimsa/html-cleaner" target="_blank" rel="noopener">GitHub</a> • <a href="#" id="installBtn" hidden>Install App</a></p>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast" hidden></div>
+
+    <script src="cleaner.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
