@@ -105,6 +105,7 @@ const HTMLCleaner = (() => {
         return result;
     }
 
+
     async function cleanAsync(html, options = {}, onProgress = null) {
         const opts = {
             removeComments: options.removeComments ?? false,

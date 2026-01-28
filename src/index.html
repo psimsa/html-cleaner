@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>HTML Styles Cleaner - Remove Inline CSS & JavaScript from HTML | Free Online Tool</title>
-    <meta name="description" content="Free online tool to strip inline CSS styles, JavaScript, and class attributes from HTML documents. Clean HTML instantly in your browser - no server upload required. Works offline as PWA.">
-    <meta name="keywords" content="HTML cleaner, remove inline CSS, strip styles, clean HTML, remove JavaScript, HTML sanitizer, web development tool, PWA">
+    <title>HTML Cleaner & Markdown Converter - Strip Inline CSS and Scripts</title>
+    <meta name="description" content="Clean HTML and convert to Markdown instantly. Strip inline CSS, scripts, and unwanted attributes in your browser with offline PWA support and secure clipboard paste.">
+    <meta name="keywords" content="HTML cleaner, Markdown converter, remove inline CSS, strip styles, clean HTML, remove JavaScript, HTML sanitizer, web development tool, PWA">
     <meta name="author" content="Pubino">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://htmlcleaner.pubino.eu/">
@@ -15,8 +15,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://htmlcleaner.pubino.eu/">
-    <meta property="og:title" content="HTML Styles Cleaner - Remove Inline CSS & JavaScript from HTML">
-    <meta property="og:description" content="Free online tool to strip inline CSS styles, JavaScript, and class attributes from HTML documents. Works offline, no data sent to servers.">
+    <meta property="og:title" content="HTML Cleaner & Markdown Converter">
+    <meta property="og:description" content="Clean HTML and convert to Markdown instantly. Strip inline CSS and scripts in your browser with offline support.">
     <meta property="og:image" content="https://htmlcleaner.pubino.eu/og-image.png">
     <meta property="og:site_name" content="HTML Styles Cleaner">
     <meta property="og:locale" content="en_US">
@@ -24,8 +24,8 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://htmlcleaner.pubino.eu/">
-    <meta name="twitter:title" content="HTML Styles Cleaner - Remove Inline CSS & JavaScript">
-    <meta name="twitter:description" content="Free online tool to strip inline CSS styles and JavaScript from HTML. Works offline as PWA.">
+    <meta name="twitter:title" content="HTML Cleaner & Markdown Converter">
+    <meta name="twitter:description" content="Clean HTML and convert to Markdown instantly with offline PWA support.">
     <meta name="twitter:image" content="https://htmlcleaner.pubino.eu/og-image.png">
     
     <!-- PWA -->
@@ -46,7 +46,7 @@
         "@type": "WebApplication",
         "name": "HTML Styles Cleaner",
         "url": "https://htmlcleaner.pubino.eu/",
-        "description": "Free online tool to strip inline CSS styles, JavaScript, and class attributes from HTML documents.",
+        "description": "Clean HTML and convert to Markdown instantly. Strip inline CSS styles, scripts, and unwanted attributes locally in your browser.",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Any",
         "offers": {
@@ -102,14 +102,27 @@
 
                 <div class="panel output-panel">
                     <div class="panel-header">
-                        <label for="output">Cleaned HTML</label>
-                        <span class="char-count" id="outputCount">0 characters</span>
+                        <label for="output" id="outputLabel">Cleaned HTML</label>
+                        <div class="panel-meta">
+                            <span class="char-count" id="outputCount">0 characters</span>
+                            <button id="toggleOutputBtn" class="btn btn-secondary btn-toggle" title="Switch output view" disabled>
+                                <span class="btn-icon">📝</span>
+                                <span class="btn-text" id="toggleOutputLabel">View Markdown</span>
+                            </button>
+                        </div>
                     </div>
                     <textarea 
                         id="output" 
                         placeholder="Cleaned HTML will appear here..."
                         readonly
                         spellcheck="false"
+                    ></textarea>
+                    <textarea 
+                        id="markdownOutput" 
+                        placeholder="Markdown will appear here..."
+                        readonly
+                        spellcheck="false"
+                        hidden
                     ></textarea>
                     <div class="panel-actions">
                         <button id="copyBtn" class="btn btn-secondary" title="Copy to clipboard" disabled>
@@ -161,6 +174,8 @@
     <div class="toast" id="toast" hidden></div>
 
     <script src="cleaner.js"></script>
+    <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+    <script src="https://unpkg.com/turndown-plugin-gfm/dist/turndown-plugin-gfm.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
