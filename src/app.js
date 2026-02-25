@@ -22,6 +22,8 @@
         clearBtn: document.getElementById('clearBtn'),
         pasteBtn: document.getElementById('pasteBtn'),
         copyBtn: document.getElementById('copyBtn'),
+        allInOneMdBtn: document.getElementById('allInOneMdBtn'),
+        allInOneCopy: document.getElementById('allInOneCopy'),
         toggleOutputBtn: document.getElementById('toggleOutputBtn'),
         toggleOutputLabel: document.getElementById('toggleOutputLabel'),
         downloadBtn: document.getElementById('downloadBtn'),
@@ -230,6 +232,74 @@
         }
     }
     
+    async function handleAllInOneMd() {
+        // Step 1: Clear
+        elements.input.value = '';
+        elements.output.value = '';
+        elements.markdownOutput.value = '';
+
+        // Step 2: Paste from clipboard
+        try {
+            let pasted = false;
+
+            if (navigator.clipboard.read) {
+                try {
+                    const clipboardItems = await navigator.clipboard.read();
+                    for (const item of clipboardItems) {
+                        if (item.types.includes('text/html')) {
+                            const blob = await item.getType('text/html');
+                            elements.input.value = await blob.text();
+                            pasted = true;
+                            break;
+                        }
+                    }
+                } catch (err) {
+                    console.warn('Clipboard read() failed or no HTML found:', err);
+                }
+            }
+
+            if (!pasted) {
+                const text = await navigator.clipboard.readText();
+                elements.input.value = text;
+            }
+        } catch (error) {
+            console.error('Paste failed:', error);
+            showToast('Unable to access clipboard', 'error');
+            return;
+        }
+
+        updateCharCount(elements.input, elements.inputCount);
+
+        // Step 3: Clean
+        const length = elements.input.value.length;
+        await performConversion(length > AUTO_CONVERT_THRESHOLD);
+
+        // Step 4: Switch to markdown view
+        updateOutputMode('markdown');
+        updateOutputCount();
+        updateOutputButtons();
+
+        // Step 5: Optionally copy markdown to clipboard
+        if (elements.allInOneCopy.checked) {
+            const md = elements.markdownOutput.value;
+            if (md) {
+                try {
+                    await navigator.clipboard.writeText(md);
+                    showToast('Converted to Markdown and copied to clipboard', 'success');
+                } catch (error) {
+                    elements.markdownOutput.select();
+                    document.execCommand('copy');
+                    showToast('Converted to Markdown and copied to clipboard', 'success');
+                }
+            } else {
+                showToast('Converted to Markdown', 'success');
+            }
+        } else {
+            showToast('Converted to Markdown', 'success');
+        }
+    }
+
+    
     async function handleCopy() {
         try {
             await navigator.clipboard.writeText(getActiveOutput().value);
@@ -304,6 +374,7 @@
         elements.convertBtn.addEventListener('click', handleConvertClick);
         elements.clearBtn.addEventListener('click', handleClear);
         elements.pasteBtn.addEventListener('click', handlePaste);
+        elements.allInOneMdBtn.addEventListener('click', handleAllInOneMd);
         elements.copyBtn.addEventListener('click', handleCopy);
         elements.toggleOutputBtn.addEventListener('click', handleToggleOutput);
         elements.downloadBtn.addEventListener('click', handleDownload);
