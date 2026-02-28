@@ -1,4 +1,4 @@
-const CACHE_NAME = 'html-cleaner-v4';
+const CACHE_NAME = 'html-cleaner-v5';
 const ASSETS = [
     '/',
     '/index.html',
@@ -8,7 +8,9 @@ const ASSETS = [
     '/manifest.json',
     '/icon-192.png',
     '/icon-512.png',
-    '/og-image.png'
+    '/og-image.png',
+    'https://unpkg.com/turndown@7.2.2/dist/turndown.js',
+    'https://unpkg.com/turndown-plugin-gfm@1.0.2/dist/turndown-plugin-gfm.js'
 ];
 
 self.addEventListener('install', (event) => {
@@ -80,7 +82,9 @@ self.addEventListener('fetch', (event) => {
             cache.match(event.request).then((cached) => {
                 const networkFetch = fetch(event.request)
                     .then((response) => {
-                        if (response && response.status === 200 && response.type === 'basic') {
+                        if (response && response.status === 200 &&
+                            (response.type === 'basic' ||
+                             (response.type === 'cors' && new URL(event.request.url).hostname === 'unpkg.com'))) {
                             cache.put(event.request, response.clone());
                         }
                         return response;
