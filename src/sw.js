@@ -91,7 +91,7 @@ self.addEventListener('fetch', (event) => {
                     })
                     .catch((err) => {
                         console.warn('SW fetch failed for', event.request.url, err);
-                        return null;
+                        return new Response('Service Unavailable', { status: 503 });
                     });
 
                 return cached || networkFetch;

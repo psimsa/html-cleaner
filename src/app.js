@@ -419,13 +419,18 @@
                 });
 
             // When a new service worker takes control (skipWaiting + clients.claim),
-            // reload so the user immediately gets the updated version.
-            // The guard prevents a reload loop if controllerchange fires more than once.
-            let swUpdateReloading = false;
+            // notify the user so they can reload at a safe moment instead of
+            // silently discarding any unsaved work.
+            let swUpdateNotified = false;
             navigator.serviceWorker.addEventListener('controllerchange', () => {
-                if (!swUpdateReloading) {
-                    swUpdateReloading = true;
-                    window.location.reload();
+                if (!swUpdateNotified) {
+                    swUpdateNotified = true;
+                    elements.toast.textContent = 'App updated — click to reload';
+                    elements.toast.className = 'toast info';
+                    elements.toast.style.cursor = 'pointer';
+                    elements.toast.hidden = false;
+                    requestAnimationFrame(() => elements.toast.classList.add('show'));
+                    elements.toast.addEventListener('click', () => window.location.reload(), { once: true });
                 }
             });
         }
