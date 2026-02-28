@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>HTML Cleaner & Markdown Converter - Strip Inline CSS and Scripts</title>
-    <meta name="description" content="Clean HTML and convert to Markdown instantly. Strip inline CSS, scripts, and unwanted attributes in your browser with offline PWA support and secure clipboard paste.">
-    <meta name="keywords" content="HTML cleaner, Markdown converter, remove inline CSS, strip styles, clean HTML, remove JavaScript, HTML sanitizer, web development tool, PWA">
+    <title>HTML to Markdown Converter - Clean & Convert HTML Instantly</title>
+    <meta name="description" content="Convert HTML to Markdown instantly in your browser. Clean HTML with optional sanitization: strip inline CSS, scripts, and unwanted attributes. Secure, offline PWA tool.">
+    <meta name="keywords" content="HTML to Markdown, Markdown converter, HTML converter, remove inline CSS, strip styles, clean HTML, HTML sanitizer, web development tool, PWA">
     <meta name="author" content="Pubino">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://htmlcleaner.pubino.eu/">
@@ -15,17 +15,17 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://htmlcleaner.pubino.eu/">
-    <meta property="og:title" content="HTML Cleaner & Markdown Converter">
-    <meta property="og:description" content="Clean HTML and convert to Markdown instantly. Strip inline CSS and scripts in your browser with offline support.">
+    <meta property="og:title" content="HTML to Markdown Converter">
+    <meta property="og:description" content="Convert HTML to Markdown instantly with optional HTML sanitization. Strip inline CSS, scripts, and unwanted attributes in your browser with offline support.">
     <meta property="og:image" content="https://htmlcleaner.pubino.eu/og-image.png">
-    <meta property="og:site_name" content="HTML Styles Cleaner">
+    <meta property="og:site_name" content="HTML to Markdown Converter">
     <meta property="og:locale" content="en_US">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://htmlcleaner.pubino.eu/">
-    <meta name="twitter:title" content="HTML Cleaner & Markdown Converter">
-    <meta name="twitter:description" content="Clean HTML and convert to Markdown instantly with offline PWA support.">
+    <meta name="twitter:title" content="HTML to Markdown Converter">
+    <meta name="twitter:description" content="Convert HTML to Markdown instantly with optional HTML sanitization and offline PWA support.">
     <meta name="twitter:image" content="https://htmlcleaner.pubino.eu/og-image.png">
     
     <!-- PWA -->
@@ -33,7 +33,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="HTML Cleaner">
+    <meta name="apple-mobile-web-app-title" content="Markdown Converter">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧹</text></svg>">
     <link rel="apple-touch-icon" href="icon-192.png">
@@ -44,9 +44,9 @@
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "HTML Styles Cleaner",
+        "name": "HTML to Markdown Converter",
         "url": "https://htmlcleaner.pubino.eu/",
-        "description": "Clean HTML and convert to Markdown instantly. Strip inline CSS styles, scripts, and unwanted attributes locally in your browser.",
+        "description": "Convert HTML to Markdown instantly with optional HTML sanitization: strip inline CSS, scripts, and unwanted attributes locally in your browser.",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Any",
         "offers": {
@@ -67,8 +67,8 @@
 <body>
     <div class="container">
         <header>
-            <h1>🧹 HTML Styles Cleaner</h1>
-            <p class="subtitle">Remove inline CSS styles and JavaScript from HTML</p>
+            <h1>📝 HTML to Markdown Converter</h1>
+            <p class="subtitle">Convert HTML to Markdown with optional HTML cleanup and sanitization</p>
         </header>
 
         <main>
@@ -99,13 +99,6 @@
                             Copy
                         </label>
                     </div>
-                </div>
-
-                <div class="divider">
-                    <button id="convertBtn" class="btn btn-primary btn-convert" title="Clean HTML">
-                        <span class="btn-icon">→</span>
-                        <span class="btn-text">Clean</span>
-                    </button>
                 </div>
 
                 <div class="panel output-panel">
@@ -150,28 +143,26 @@
                 <span class="progress-text" id="progressText">Processing...</span>
             </div>
 
-            <div class="options">
-                <label class="checkbox-label">
-                    <input type="checkbox" id="autoConvert" checked>
-                    <span class="checkbox-custom"></span>
-                    Auto-convert (for inputs under 5,000 characters)
-                </label>
-                <label class="checkbox-label">
-                    <input type="checkbox" id="removeComments">
-                    <span class="checkbox-custom"></span>
-                    Remove HTML comments
-                </label>
-                <label class="checkbox-label">
-                    <input type="checkbox" id="removeDataAttrs">
-                    <span class="checkbox-custom"></span>
-                    Remove data-* attributes
-                </label>
-                <label class="checkbox-label">
-                    <input type="checkbox" id="removeClasses">
-                    <span class="checkbox-custom"></span>
-                    Remove CSS classes
-                </label>
-            </div>
+            <details class="advanced-settings">
+                <summary>Advanced Settings</summary>
+                <div class="options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="removeComments">
+                        <span class="checkbox-custom"></span>
+                        Remove HTML comments
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="removeDataAttrs">
+                        <span class="checkbox-custom"></span>
+                        Remove data-* attributes
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="removeClasses">
+                        <span class="checkbox-custom"></span>
+                        Remove CSS classes
+                    </label>
+                </div>
+            </details>
         </main>
 
         <footer>
