@@ -462,6 +462,19 @@ footer a:hover {
         min-height: 44px;
     }
 
+    /* Fix Clean button: base .btn-convert styles (border-radius:50%; width:60px; height:60px)
+       appear after the 900px media query in the file, so they win the cascade on mobile.
+       Explicitly re-apply the rectangular shape here (600px block comes last, so it wins). */
+    .btn-convert {
+        flex: 0 0 auto;
+        width: auto;
+        height: auto;
+        min-width: 140px;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        flex-direction: row;
+    }
+
     /* Reorder input-panel actions: Clear + Paste + Copy on row 1, All-in-One MD full-width on row 2 */
     .input-panel .panel-actions .checkbox-label {
         flex: 0 0 auto;
