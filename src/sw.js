@@ -1,4 +1,4 @@
-const CACHE_NAME = 'html-cleaner-v6';
+const CACHE_NAME = 'html-cleaner-v9';
 const ASSETS = [
     '/',
     '/index.html',

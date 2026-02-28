@@ -1,18 +1,20 @@
-# HTML Styles Cleaner
+# HTML to Markdown Converter
 
-A browser-based PWA tool that strips inline CSS styles, JavaScript, and class attributes from HTML documents.
+A browser-based PWA tool that converts HTML to clean Markdown with optional HTML sanitization (strip inline CSS, JavaScript, and unwanted attributes).
 
 🌐 **Live Demo:** [htmlcleaner.pubino.eu](https://htmlcleaner.pubino.eu)
 
 ## Features
 
+- **Live HTML-to-Markdown conversion** - Instant real-time conversion as you type with 500ms debounce
+- **Markdown as default output** - Output starts in Markdown mode; toggle to HTML view if needed
+- **Fine-grained HTML sanitization** - Optionally strip inline styles, scripts, comments, classes, and data attributes
 - **Remove inline styles** - Strips `style` attributes and legacy styling attributes (`bgcolor`, `align`, `width`, etc.)
 - **Remove JavaScript** - Removes `<script>` tags and all `on*` event handlers
 - **Remove CSS** - Strips `<style>` tags and stylesheet links
 - **Remove classes** - Optionally remove all `class` attributes
 - **Remove data-* attributes** - Optionally strip custom data attributes
 - **Remove comments** - Optionally clean HTML comments
-- **Auto-convert** - Instant cleaning for inputs under 5,000 characters
 - **Progress indicator** - Visual feedback for large documents
 - **Works offline** - Full PWA support with service worker caching
 - **No server required** - All processing happens in your browser

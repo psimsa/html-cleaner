@@ -1,7 +1,7 @@
 {
-    "name": "HTML Styles Cleaner",
-    "short_name": "HTML Cleaner",
-    "description": "Free online tool to strip inline CSS styles, JavaScript, and class attributes from HTML documents. Works offline.",
+    "name": "HTML to Markdown Converter",
+    "short_name": "Markdown Converter",
+    "description": "Free online HTML to Markdown converter with optional HTML sanitization. Strip inline CSS, scripts, and unwanted attributes from HTML documents. Works offline.",
     "start_url": "https://htmlcleaner.pubino.eu/",
     "id": "https://htmlcleaner.pubino.eu/",
     "display": "standalone",

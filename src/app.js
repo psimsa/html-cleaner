@@ -18,7 +18,6 @@
         markdownOutput: document.getElementById('markdownOutput'),
         inputCount: document.getElementById('inputCount'),
         outputCount: document.getElementById('outputCount'),
-        convertBtn: document.getElementById('convertBtn'),
         clearBtn: document.getElementById('clearBtn'),
         pasteBtn: document.getElementById('pasteBtn'),
         copyBtn: document.getElementById('copyBtn'),
@@ -27,7 +26,6 @@
         toggleOutputBtn: document.getElementById('toggleOutputBtn'),
         toggleOutputLabel: document.getElementById('toggleOutputLabel'),
         downloadBtn: document.getElementById('downloadBtn'),
-        autoConvert: document.getElementById('autoConvert'),
         removeComments: document.getElementById('removeComments'),
         removeDataAttrs: document.getElementById('removeDataAttrs'),
         removeClasses: document.getElementById('removeClasses'),
@@ -109,7 +107,6 @@
     function setProcessing(processing) {
         isProcessing = processing;
         document.body.classList.toggle('processing', processing);
-        elements.convertBtn.disabled = processing;
     }
     
     async function performConversion(showProgressBar = false) {
@@ -162,29 +159,14 @@
     function handleInputChange() {
         updateCharCount(elements.input, elements.inputCount);
         
-        if (!elements.autoConvert.checked) {
-            return;
+        if (debounceTimer) {
+            clearTimeout(debounceTimer);
         }
         
-        const length = elements.input.value.length;
-        
-        if (length <= AUTO_CONVERT_THRESHOLD) {
-            if (debounceTimer) {
-                clearTimeout(debounceTimer);
-            }
-            
-            debounceTimer = setTimeout(() => {
-                performConversion(false);
-            }, 150);
-        }
-    }
-    
-    function handleConvertClick() {
-        if (isProcessing) return;
-        
-        const length = elements.input.value.length;
-        const showProgress = length > AUTO_CONVERT_THRESHOLD;
-        performConversion(showProgress);
+        debounceTimer = setTimeout(() => {
+            const length = elements.input.value.length;
+            performConversion(length > AUTO_CONVERT_THRESHOLD);
+        }, 500);
     }
     
     function handleClear() {
@@ -339,10 +321,7 @@
     
     function handleOptionChange() {
         initMarkdownConverter();
-
-        if (elements.autoConvert.checked && elements.input.value.length <= AUTO_CONVERT_THRESHOLD) {
-            performConversion(false);
-        }
+        performConversion(elements.input.value.length > AUTO_CONVERT_THRESHOLD);
     }
 
     function handleToggleOutput() {
@@ -371,7 +350,6 @@
     
     function initEventListeners() {
         elements.input.addEventListener('input', handleInputChange);
-        elements.convertBtn.addEventListener('click', handleConvertClick);
         elements.clearBtn.addEventListener('click', handleClear);
         elements.pasteBtn.addEventListener('click', handlePaste);
         elements.allInOneMdBtn.addEventListener('click', handleAllInOneMd);
@@ -383,17 +361,9 @@
         elements.removeComments.addEventListener('change', handleOptionChange);
         elements.removeDataAttrs.addEventListener('change', handleOptionChange);
         elements.removeClasses.addEventListener('change', handleOptionChange);
-        elements.autoConvert.addEventListener('change', handleOptionChange);
         
         elements.input.addEventListener('paste', () => {
             setTimeout(handleInputChange, 0);
-        });
-        
-        document.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-                e.preventDefault();
-                handleConvertClick();
-            }
         });
     }
     
@@ -442,7 +412,7 @@
         updateCharCount(elements.input, elements.inputCount);
         updateOutputCount();
         updateOutputButtons();
-        updateOutputMode('html');
+        updateOutputMode('markdown');
         initMarkdownConverter();
     }
 
