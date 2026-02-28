@@ -1,4 +1,4 @@
-const CACHE_NAME = 'html-cleaner-v5';
+const CACHE_NAME = 'html-cleaner-v6';
 const ASSETS = [
     '/',
     '/index.html',
@@ -79,7 +79,7 @@ self.addEventListener('fetch', (event) => {
     // gets the latest version.
     event.respondWith(
         caches.open(CACHE_NAME).then((cache) =>
-            cache.match(event.request).then((cached) => {
+            cache.match(event.request, { ignoreVary: true }).then((cached) => {
                 const networkFetch = fetch(event.request)
                     .then((response) => {
                         if (response && response.status === 200 &&
