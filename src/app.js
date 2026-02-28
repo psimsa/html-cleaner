@@ -417,6 +417,22 @@
                 .catch(error => {
                     console.log('SW registration failed:', error);
                 });
+
+            // When a new service worker takes control (skipWaiting + clients.claim),
+            // notify the user so they can reload at a safe moment instead of
+            // silently discarding any unsaved work.
+            let swUpdateNotified = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!swUpdateNotified) {
+                    swUpdateNotified = true;
+                    elements.toast.textContent = 'App updated — click to reload';
+                    elements.toast.className = 'toast info';
+                    elements.toast.style.cursor = 'pointer';
+                    elements.toast.hidden = false;
+                    requestAnimationFrame(() => elements.toast.classList.add('show'));
+                    elements.toast.addEventListener('click', () => window.location.reload(), { once: true });
+                }
+            });
         }
     }
     
