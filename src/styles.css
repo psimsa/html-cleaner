@@ -414,23 +414,78 @@ footer a:hover {
     .container {
         padding: 1rem;
     }
-    
+
+    header {
+        margin-bottom: 1rem;
+    }
+
     header h1 {
         font-size: 1.5rem;
     }
-    
+
+    main {
+        gap: 1rem;
+    }
+
+    /* Prevent iOS Safari from auto-zooming on textarea focus */
+    textarea {
+        font-size: 1rem;
+    }
+
+    .panel {
+        min-height: 38vh;
+    }
+
+    /* Allow header to wrap on very narrow screens */
+    .panel-header {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
     .options {
         flex-direction: column;
         gap: 0.75rem;
     }
-    
+
     .panel-actions {
         flex-wrap: wrap;
     }
-    
+
     .btn {
         flex: 1;
         min-width: 100px;
+    }
+
+    /* Ensure comfortable touch targets for action buttons */
+    .panel-actions .btn,
+    .btn-convert {
+        min-height: 44px;
+    }
+
+    /* Fix Clean button: base .btn-convert styles (border-radius:50%; width:60px; height:60px)
+       appear after the 900px media query in the file, so they win the cascade on mobile.
+       Explicitly re-apply the rectangular shape here (600px block comes last, so it wins). */
+    .btn-convert {
+        flex: 0 0 auto;
+        width: auto;
+        height: auto;
+        min-width: 140px;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        flex-direction: row;
+    }
+
+    /* Reorder input-panel actions: Clear + Paste + Copy on row 1, All-in-One MD full-width on row 2 */
+    .input-panel .panel-actions .checkbox-label {
+        flex: 0 0 auto;
+        order: 3;
+        min-height: 44px;
+        align-self: center;
+    }
+
+    #allInOneMdBtn {
+        order: 4;
+        flex-basis: 100%;
     }
 }
 
