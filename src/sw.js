@@ -1,4 +1,4 @@
-const CACHE_NAME = 'html-cleaner-v3';
+const CACHE_NAME = 'html-cleaner-v4';
 const ASSETS = [
     '/',
     '/index.html',
@@ -15,7 +15,17 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
-                return cache.addAll(ASSETS);
+                return Promise.all(
+                    ASSETS.map((url) =>
+                        fetch(new Request(url, { cache: 'no-cache' }))
+                            .then((response) => {
+                                if (!response.ok) {
+                                    throw new Error(`Failed to cache ${url}: ${response.status}`);
+                                }
+                                return cache.put(url, response);
+                            })
+                    )
+                );
             })
             .then(() => self.skipWaiting())
     );
@@ -40,32 +50,48 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    event.respondWith(
-        caches.match(event.request)
-            .then((cached) => {
-                if (cached) {
-                    return cached;
-                }
-
-                return fetch(event.request)
-                    .then((response) => {
-                        if (!response || response.status !== 200 || response.type !== 'basic') {
-                            return response;
-                        }
-
+    // Network-first for navigation requests: always fetch fresh HTML from the
+    // network so users see the latest version immediately after a deployment.
+    if (event.request.mode === 'navigate') {
+        event.respondWith(
+            fetch(event.request)
+                .then((response) => {
+                    if (response && response.status === 200) {
                         const responseToCache = response.clone();
-                        caches.open(CACHE_NAME)
-                            .then((cache) => {
-                                cache.put(event.request, responseToCache);
-                            });
+                        caches.open(CACHE_NAME).then((cache) => {
+                            cache.put(event.request, responseToCache);
+                        });
+                    }
+                    return response;
+                })
+                .catch(() =>
+                    caches.match(event.request)
+                        .then((cached) => cached || caches.match('/index.html'))
+                )
+        );
+        return;
+    }
 
+    // Stale-while-revalidate for all other assets: serve from cache immediately
+    // for speed, but update the cache entry in the background so the next load
+    // gets the latest version.
+    event.respondWith(
+        caches.open(CACHE_NAME).then((cache) =>
+            cache.match(event.request).then((cached) => {
+                const networkFetch = fetch(event.request)
+                    .then((response) => {
+                        if (response && response.status === 200 && response.type === 'basic') {
+                            cache.put(event.request, response.clone());
+                        }
                         return response;
                     })
-                    .catch(() => {
-                        if (event.request.mode === 'navigate') {
-                            return caches.match('/index.html');
-                        }
+                    .catch((err) => {
+                        console.warn('SW fetch failed for', event.request.url, err);
+                        return null;
                     });
+
+                return cached || networkFetch;
             })
+        )
     );
 });

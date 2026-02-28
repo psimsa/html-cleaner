@@ -417,6 +417,17 @@
                 .catch(error => {
                     console.log('SW registration failed:', error);
                 });
+
+            // When a new service worker takes control (skipWaiting + clients.claim),
+            // reload so the user immediately gets the updated version.
+            // The guard prevents a reload loop if controllerchange fires more than once.
+            let swUpdateReloading = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!swUpdateReloading) {
+                    swUpdateReloading = true;
+                    window.location.reload();
+                }
+            });
         }
     }
     
